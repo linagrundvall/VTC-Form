@@ -22,6 +22,7 @@ namespace VTC
             if (UploadedFile.HasFile)
                 try
                 {
+
                     UploadedFile.SaveAs(Server.MapPath("~/uploads/") +
                          UploadedFile.FileName);
                     FileUploadedLabel.Text = "File name: " +
@@ -47,9 +48,45 @@ namespace VTC
             }
         }
 
-        protected void Convert(object sender, EventArgs e)
+        protected void Selection_Change(Object sender, EventArgs e)
+        {
+            //Spara variabel att använda i Convert
+            if ( FormatList.SelectedValue == "Avi")
+            {
+                var splitExtension = Session["uploadedFileName"].ToString().Split('.');
+                var withoutExtension = splitExtension.FirstOrDefault().ToString();
+                var withNewExtension = withoutExtension + ".avi";
+
+                Session["selectedFormat"] = withNewExtension;
+
+                Console.WriteLine("hej");
+            }
+            else if(FormatList.SelectedValue == "Mov")
+            {
+                var splitExtension = Session["uploadedFileName"].ToString().Split('.');
+                var withoutExtension = splitExtension.FirstOrDefault().ToString();
+                var withNewExtension = withoutExtension + ".mov";
+
+                Session["selectedFormat"] = withNewExtension;
+
+                Console.WriteLine("hej");
+            }
+            else if (FormatList.SelectedValue == "Mp4")
+            {
+                var splitExtension = Session["uploadedFileName"].ToString().Split('.');
+                var withoutExtension = splitExtension.FirstOrDefault().ToString();
+                var withNewExtension = withoutExtension + ".mp4";
+
+                Session["selectedFormat"] = withNewExtension;
+
+                Console.WriteLine("hej");
+            }
+        }
+
+            protected void Convert(object sender, EventArgs e)
         {
             if (1 == 1)
+                //ändra
                 try
                 {
                     var fileToConvert = Session["uploadedFile"];

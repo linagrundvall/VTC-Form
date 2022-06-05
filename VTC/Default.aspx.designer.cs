@@ -42,6 +42,15 @@ namespace VTC
         protected global::System.Web.UI.WebControls.Label FileUploadedLabel;
 
         /// <summary>
+        /// FormatList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList FormatList;
+
+        /// <summary>
         /// ConvertButton control.
         /// </summary>
         /// <remarks>

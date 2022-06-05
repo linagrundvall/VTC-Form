@@ -21,6 +21,15 @@
                 runat="server" />
             <br />
 
+            <asp:DropDownList ID="FormatList"
+                AutoPostBack="True"
+                OnSelectedIndexChanged="Selection_Change"
+                runat="server">
+                <asp:ListItem Selected="True" Value="Start"> Choose format </asp:ListItem>
+                <asp:ListItem Value="Avi"> Avi </asp:ListItem>
+                <asp:ListItem Value="Mov"> Mov </asp:ListItem>
+                <asp:ListItem Value="Mp4"> Mp4 </asp:ListItem>
+            </asp:DropDownList>
 
             <asp:Button ID="ConvertButton"
                 runat="server"
