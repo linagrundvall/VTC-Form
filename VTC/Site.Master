@@ -43,7 +43,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - VideoTranscoder</p>
+                <p>&copy; <%: DateTime.Now.Year %> - My VideoTranscoder</p>
             </footer>
         </div>
 

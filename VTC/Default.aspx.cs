@@ -9,6 +9,8 @@ namespace VTC
 {
     public partial class _Default : Page
     {
+        //string uploadedFile { get;set;}
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -16,15 +18,17 @@ namespace VTC
 
         protected void Upload(object sender, EventArgs e)
         {
-            if (FileUpload1.HasFile)
+            if (UploadedFile.HasFile)
                 try
                 {
-                    FileUpload1.SaveAs(Server.MapPath("~/uploads/") +
-                         FileUpload1.FileName);
+                    UploadedFile.SaveAs(Server.MapPath("~/uploads/") +
+                         UploadedFile.FileName);
                     FileUploadedLabel.Text = "File name: " +
-                         FileUpload1.PostedFile.FileName + "<br>" +
-                         FileUpload1.PostedFile.ContentLength + " kb<br>" +
-                         "Content type: " + FileUpload1.PostedFile.ContentType;
+                         UploadedFile.PostedFile.FileName + "<br>" +
+                         UploadedFile.PostedFile.ContentLength + " kb<br>" +
+                         "Content type: " + UploadedFile.PostedFile.ContentType;
+
+                    Session["uploadedFile"] = "~/uploads/" + UploadedFile.FileName;
                 }
                 catch (Exception ex)
                 {
@@ -38,7 +42,23 @@ namespace VTC
 
         protected void Convert(object sender, EventArgs e)
         {
-            Console.WriteLine("Hello Converter");
+            if (1 == 1)
+                try
+                {
+                    var fileToConvert = Session["uploadedFile"];
+                    Console.WriteLine("Hej");
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    FileUploadedLabel.Text = "ERROR: " + ex.Message.ToString();
+                }
+            else
+            {
+                FileUploadedLabel.Text = "You have not specified a file.";
+            }
         }
 
     }
