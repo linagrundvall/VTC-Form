@@ -29,6 +29,8 @@ namespace VTC
                          UploadedFile.PostedFile.ContentLength + " kb<br>" +
                          "Content type: " + UploadedFile.PostedFile.ContentType;
 
+                    Session["upFile"] = UploadedFile;
+
                     Session["uploadedFilePath"] = "~/uploads/" + UploadedFile.FileName;
                     Session["uploadedFileName"] = UploadedFile.FileName;
                     Session["pathUploads"] = Server.MapPath("~/uploads/");
@@ -60,12 +62,12 @@ namespace VTC
                     p.StartInfo.RedirectStandardError = true;
                     p.StartInfo.FileName = "cmd.exe";
 
-                    string replaceWith = "\\";
-                    replaceWith += "\u0022";
-                    Session["pathUploads"] = Session["pathUploads"].ToString().Replace("\\", replaceWith);
+                    //string replaceWith = "\\";
+                    //replaceWith += "\u0022";
+                    //Session["pathUploads"] = Session["pathUploads"].ToString().Replace("\\", replaceWith);
 
 
-                    string Arguments = "/C ffmpeg -i " + Session["pathUploads"] + "traffic.mp4" + Session["pathConverted"] + "\\traffic.avi";
+                    string Arguments = "/C ffmpeg -i " + Session["pathUploads"] + "traffic.mp4 " + Session["pathConverted"] + "\\traffic.avi";
                     //"/C ffmpeg -i " + "source\\repos\\VTC\\VTC Form\\VTC\\uploads\\" +
                     //"uploadedFileName" + " source\\repos\\VTC\\VTC Form\\VTC\\converted";
 
@@ -86,7 +88,7 @@ namespace VTC
                     FileConvertedLabel.Text = output;
 
 
-                    FileConvertedLabel.Text = "You have converted a file.";
+                    FileConvertedLabel.Text = "You have converted a file successfully!";
                     string output2 = p.StandardError.ReadToEnd();
                     FileConvertedLabel.Text = output2;
 
