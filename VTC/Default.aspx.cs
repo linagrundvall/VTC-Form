@@ -10,8 +10,6 @@ namespace VTC
 {
     public partial class _Default : Page
     {
-        //string uploadedFile { get;set;}
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -50,46 +48,36 @@ namespace VTC
 
         protected void Selection_Change(Object sender, EventArgs e)
         {
-            //Spara variabel att använda i Convert
-            if ( FormatList.SelectedValue == "Avi")
+            var splitExtension = Session["uploadedFileName"].ToString().Split('.');
+            var withoutExtension = splitExtension.FirstOrDefault().ToString();
+
+            if (FormatList.SelectedValue == "Avi")
             {
-                var splitExtension = Session["uploadedFileName"].ToString().Split('.');
-                var withoutExtension = splitExtension.FirstOrDefault().ToString();
                 var withNewExtension = withoutExtension + ".avi";
 
                 Session["selectedFormat"] = withNewExtension;
-
-                Console.WriteLine("hej");
             }
-            else if(FormatList.SelectedValue == "Mov")
+            else if (FormatList.SelectedValue == "Mov")
             {
-                var splitExtension = Session["uploadedFileName"].ToString().Split('.');
-                var withoutExtension = splitExtension.FirstOrDefault().ToString();
                 var withNewExtension = withoutExtension + ".mov";
 
                 Session["selectedFormat"] = withNewExtension;
-
-                Console.WriteLine("hej");
             }
             else if (FormatList.SelectedValue == "Mp4")
             {
-                var splitExtension = Session["uploadedFileName"].ToString().Split('.');
-                var withoutExtension = splitExtension.FirstOrDefault().ToString();
                 var withNewExtension = withoutExtension + ".mp4";
 
                 Session["selectedFormat"] = withNewExtension;
-
-                Console.WriteLine("hej");
             }
         }
 
-            protected void Convert(object sender, EventArgs e)
+        protected void Convert(object sender, EventArgs e)
         {
             if (1 == 1)
                 //ändra
                 try
                 {
-                    var fileToConvert = Session["uploadedFile"];
+                    //var fileToConvert = Session["uploadedFile"];
 
                     // Start the child process.
                     Process p = new Process();
@@ -104,18 +92,18 @@ namespace VTC
                     //Session["pathUploads"] = Session["pathUploads"].ToString().Replace("\\", replaceWith);
 
 
-                    string Arguments = "/C ffmpeg -i " + Session["pathUploads"] + "traffic.mp4 " + Session["pathConverted"] + "\\traffic.avi";
-                    //"/C ffmpeg -i " + "source\\repos\\VTC\\VTC Form\\VTC\\uploads\\" +
-                    //"uploadedFileName" + " source\\repos\\VTC\\VTC Form\\VTC\\converted";
+                    string Arguments = "/C ffmpeg -i " + Session["pathUploads"] /*+ " -speed ultrafast "*/ 
+                        + Session["uploadedFileName"] + " " + Session["pathConverted"] + "\\" + Session["selectedFormat"];
 
+
+                    //skriver ut string
                     FileConvertedLabel.Text = Arguments;
-
 
                     p.StartInfo.Arguments = Arguments;
                     //"/C ffmpeg -i videos\\copy.mp4 converted\\copy.avi";
                     p.Start();
                     p.WaitForExit();
-                    //p.StartInfo.Arguments = "/C Del videos\\copy.mp4";
+                    //p.StartInfo.Arguments = "/C Del " + Session["pathUploads"] + Session["uploadedFileName"];
                     //p.Start();
                     //p.WaitForExit();
 
@@ -124,10 +112,10 @@ namespace VTC
                     string output = p.StandardOutput.ReadToEnd();
                     FileConvertedLabel.Text = output;
 
-
-                    FileConvertedLabel.Text = "You have converted a file successfully!";
-                    string output2 = p.StandardError.ReadToEnd();
-                    FileConvertedLabel.Text = output2;
+                    string success = "You have converted a file successfully!";
+                    FileConvertedLabel.Text = success;
+                    string errorOutput = p.StandardError.ReadToEnd();
+                    FileConvertedLabel.Text = errorOutput;
 
 
                 }
